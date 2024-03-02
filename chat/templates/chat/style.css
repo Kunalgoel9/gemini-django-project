@@ -1,0 +1,16 @@
+body {
+  display: flex;
+  background-color: #1a1a1a; /* For dark mode */
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  width: 250px;
+  /* Additional styling */
+}
+
+.content {
+  flex-grow: 1;
+  /* Additional styling */
+}

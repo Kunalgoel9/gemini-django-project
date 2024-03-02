@@ -1,0 +1,18 @@
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <input type="text" name="user_input" />
+  <button type="submit">Send</button>
+</form>
+<div id="chat-box">
+  {% for message in messages %}
+  <div class="message">
+    <div class="user-message">{{ message.text }}</div>
+    <div class="bot-response">{{ message.response }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+<a href="{% url 'user-logout' %}"> Logout here </a>
+{% endblock %}
