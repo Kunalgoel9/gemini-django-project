@@ -43,6 +43,22 @@ def chat_session(request):
         session,created=ChatSession.objects.get_or_create(id=session_id, user=request.user.id)
         messages=Message.objects.filter(session=session, user=request.user.id)
         print(messages)
+        if request.method == 'POST':
+            user_input = request.POST.get('user_input')
+            if user_input:
+                model = genai.GenerativeModel('gemini-pro')
+                
+                conversation_context = ""
+                for record in messages:
+                    conversation_context += f"{record.text}\n{record.response}\n"
+
+                full_prompt = f"{conversation_context}{user_input}"
+                response = model.generate_content(full_prompt)
+                print(response.text)
+                Message.objects.create(session=session,text=user_input, response=response.text,user=request.user.id)
+                messages = Message.objects.filter(session=session,user=request.user.id)
+                user_input=""
+                redirect('chat_session')
     # Logic for handling chat sessions
     template = loader.get_template('chat/session.html')
     print("hello")

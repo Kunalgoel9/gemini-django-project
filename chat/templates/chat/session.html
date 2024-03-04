@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Session</title>
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -35,10 +36,38 @@
         color: #555;
         margin-top: 5px;
       }
+      form {
+        margin-top: 20px;
+      }
+      input[type="text"] {
+        width: calc(100% - 120px);
+        padding: 10px;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #218838;
+      }
     </style>
   </head>
   <body>
     <h2>Session</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="user_input" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
     <div id="chat-box">
       {% for message in messages %}
       <div class="message">
@@ -48,5 +77,10 @@
       </div>
       {% endfor %}
     </div>
+    <script>
+      if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+      }
+    </script>
   </body>
 </html>
