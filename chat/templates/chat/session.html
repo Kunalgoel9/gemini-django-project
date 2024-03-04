@@ -3,9 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Chat Session</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+
+      #chat-box {
+        margin-top: 20px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .message {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .user-message {
+        color: #333;
+        font-weight: bold;
+      }
+
+      .bot-response {
+        color: #555;
+        margin-top: 5px;
+      }
+    </style>
   </head>
   <body>
-    Session
+    <h2>Session</h2>
+    <div id="chat-box">
+      {% for message in messages %}
+      <div class="message">
+        <div class="user-message">{{ message.text }}</div>
+        <div class="bot-response">{{ message.response }}</div>
+        <br />
+      </div>
+      {% endfor %}
+    </div>
   </body>
 </html>

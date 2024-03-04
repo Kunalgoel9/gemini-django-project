@@ -23,7 +23,7 @@ def home(request):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('chat/', include('chat.urls')),
+    path('', include('chat.urls')),
     
-     path('', home, name='home'),
+    #  path('', home, name='home'),
 ]

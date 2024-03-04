@@ -1,8 +1,74 @@
 {% block content %}
+<style>
+  /* Your existing CSS */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+  a {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin: 5px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  a:hover {
+    background-color: #0056b3;
+  }
+  form {
+    margin-top: 20px;
+  }
+  input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+  }
+  button {
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #218838;
+  }
+  #chat-box {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  .user-message {
+    color: #333;
+  }
+  .bot-response {
+    color: #555;
+    margin-top: 5px;
+  }
+</style>
 
+<div>
+  <a href="{% url 'chat_home' %}">New Chat</a>
+</div>
 <form method="post">
   {% csrf_token %}
-  <input type="text" name="user_input" />
+  <input type="text" name="user_input" autocomplete="off" />
   <button type="submit">Send</button>
 </form>
 <div id="chat-box">
@@ -10,9 +76,24 @@
   <div class="message">
     <div class="user-message">{{ message.text }}</div>
     <div class="bot-response">{{ message.response }}</div>
+    <br />
+  </div>
+  {% endfor %}
+</div>
+<br />
+<div id="chat-box">
+  <h4>Sessions</h4>
+  {% for session in chat_sessions %}
+  <div class="message">
+    <div class="user-message">Session {{ forloop.counter }}</div>
+    <a href="{% url 'chat_session' %}?session_id={{ session.id }}"
+      >View Session</a
+    >
+    <br />
   </div>
   {% endfor %}
 </div>
 
 <a href="{% url 'user-logout' %}"> Logout here </a>
+
 {% endblock %}
